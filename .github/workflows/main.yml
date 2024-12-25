@@ -8,8 +8,6 @@ on:
 
 jobs:
   build:
-
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,11 +16,16 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
-    - run: npm start
+
+    - name: Install dependencies and run the application
+      run: |
+        npm install
+        npm start
